@@ -6,7 +6,7 @@ from functools import *
 import scrapy
 
 attr = lambda attribute, element: element.css("::attr({0})".format(attribute)).extract_first()
-text = lambda element: element.css("::text").extract_first()
+text = lambda element: "".join(element.css("::text").extract())
 itemprop = partial(attr, "itemprop")
 
 class MailsSpider(CrawlSpider):
@@ -20,4 +20,6 @@ class MailsSpider(CrawlSpider):
     ]
 
     def parse_mail(self, response):
-        yield {itemprop(p): text(p) for p in response.css("*[itemprop]")}
+        mail = {itemprop(p): text(p) for p in response.css("*[itemprop]")}
+        mail["url"] = response.url
+        yield mail

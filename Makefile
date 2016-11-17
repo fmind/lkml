@@ -3,5 +3,5 @@ FORMAT="jsonlines"
 LOGLEVEL="INFO"
 
 all:
-	rm $(OUTPUT)
+	rm -f $(OUTPUT)
 	scrapy crawl mails -o $(OUTPUT) -t $(FORMAT) -L $(LOGLEVEL)

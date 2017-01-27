@@ -6,7 +6,8 @@ from functools import *
 import scrapy
 
 attr = lambda attribute, element: element.css("::attr({0})".format(attribute)).extract_first()
-text = lambda element: " ".join(element.css("::text").extract())
+#text = lambda element: " ".join(element.css("::text").extract())
+text = lambda element: element.extract()
 itemprop = partial(attr, "itemprop")
 
 class MailsSpider(CrawlSpider):
